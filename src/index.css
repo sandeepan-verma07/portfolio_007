@@ -1,0 +1,465 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --iaf-gold: #D4A853;
+  --iaf-navy: #1a365d;
+  --stealth-black: #0a0a0b;
+  --stealth-dark: #111113;
+  --stealth-gray: #1a1a1d;
+  --stealth-silver: #8b8b8b;
+  --hud-green: #00ff88;
+  --radar-blue: #00d4ff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--stealth-black);
+  color: #e5e5e5;
+}
+
+code {
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, monospace;
+}
+
+.font-military {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--stealth-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--stealth-silver);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--iaf-gold);
+}
+
+/* Radar sweep animation */
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.radar-sweep {
+  width: 3px;
+  height: 55%;
+  background: linear-gradient(to bottom, #00ff88, transparent);
+  transform-origin: top center;
+  animation: radarSpin 2.5s linear infinite;
+  border-radius: 2px;
+}
+
+
+/* HUD flicker effect */
+@keyframes hud-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.hud-flicker {
+  animation: hud-flicker 2s ease-in-out infinite;
+}
+
+/* Targeting animation */
+@keyframes target-lock {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.target-lock {
+  animation: target-lock 1.5s ease-in-out infinite;
+}
+
+/* Scan line effect */
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.scan-line {
+  animation: scan-line 3s linear infinite;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--iaf-gold) 0%, #f0e68c 50%, var(--iaf-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(26, 26, 29, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 168, 83, 0.1);
+}
+
+/* HUD border */
+.hud-border {
+  border: 1px solid var(--iaf-gold);
+  position: relative;
+}
+
+.hud-border::before,
+.hud-border::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--iaf-gold);
+}
+
+.hud-border::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.hud-border::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 90%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 90%;
+    --primary: 43 65% 58%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 212 100% 50%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 43 30% 20%;
+    --input: 0 0% 12%;
+    --ring: 43 65% 58%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+/* -----------------------------
+   HERO: smooth transitions & soft vignette
+   ----------------------------- */
+
+.hero-bg-wrapper {
+  will-change: transform, opacity, filter;
+  transition: transform 950ms cubic-bezier(.2,.8,.2,1);
+}
+
+.hero-bg-img {
+  transition: opacity 900ms cubic-bezier(.2,.8,.2,1),
+              filter 900ms cubic-bezier(.2,.8,.2,1),
+              transform 900ms cubic-bezier(.2,.8,.2,1);
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+/* top overlay: dark at top -> transparent near center */
+.hero-overlay-top {
+  transition: opacity 1000ms cubic-bezier(.2,.8,.2,1);
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,10,11,0.82) 0%,
+    rgba(10,10,11,0.60) 10%,
+    rgba(10,10,11,0.36) 24%,
+    rgba(10,10,11,0.16) 38%,
+    rgba(10,10,11,0.06) 52%,
+    rgba(10,10,11,0) 60%
+  );
+  pointer-events: none;
+}
+
+/* bottom overlay: transparent center -> dark at bottom */
+.hero-overlay-bottom {
+  transition: opacity 1000ms cubic-bezier(.2,.8,.2,1);
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,10,11,0) 45%,
+    rgba(10,10,11,0.06) 60%,
+    rgba(10,10,11,0.18) 76%,
+    rgba(10,10,11,0.46) 92%,
+    rgba(10,10,11,0.72) 100%
+  );
+  pointer-events: none;
+}
+
+/* show state when component 'loaded' toggles class */
+.hero-overlay-top.is-loaded,
+.hero-overlay-bottom.is-loaded {
+  opacity: 1;
+}
+
+/* final tuned image look when loaded */
+.hero-bg-img.is-loaded {
+  filter: brightness(0.82) contrast(0.98) saturate(0.95);
+  opacity: 0.68; /* final darkness — tweak to taste */
+}
+
+/* be nice to users who request reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-img,
+  .hero-overlay-top,
+  .hero-overlay-bottom,
+  .hero-bg-wrapper {
+    transition: none;
+  }
+}
+/* ---- Centered radar: sweep rotates around center ---- */
+
+/* radar container - kept absolute via JSX, this is internal layout */
+/* ---- RADAR (two rings + detection dot + slow central sweep) ---- */
+
+.radar-container { /* no extra styles - placement comes from JSX */ }
+
+/* inner wrapper: rings via pseudo elements */
+.radar-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* outer and inner rings via pseudo-elements */
+.radar-inner::before,
+.radar-inner::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.radar-inner::before { /* outer ring */
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(0,255,136,0.10);
+  z-index: 5;
+}
+
+.radar-inner::after { /* inner ring (smaller) */
+  width: 68%;
+  height: 68%;
+  border: 1.5px solid rgba(0,255,136,0.06);
+  z-index: 5;
+}
+
+/* sweep arm (rotates around center) */
+.radar-sweep {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: 50% 0;
+
+  /* wider sweep arm */
+  width: 10px;
+  height: 58%;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 136, 0.00) 0%,
+    rgba(0, 255, 136, 0.18) 20%,
+    rgba(0, 255, 136, 0.55) 65%,
+    rgba(0, 255, 136, 1.00) 100%
+  );
+
+  /* tapered shape: narrow at top, wider at bottom */
+  clip-path: polygon(
+    45% 0%,   /* narrow top-left */
+    55% 0%,   /* narrow top-right */
+    78% 100%, /* wide bottom-right */
+    22% 100%  /* wide bottom-left */
+  );
+
+  border-radius: 2px;
+  animation: radar-sweep 3.5s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(0,255,136,0.4));
+}
+
+
+
+/* center fixed dot */
+.radar-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 40%;
+  background: #00ff88;
+  box-shadow: 0 0 8px rgba(0,255,136,0.45), 0 0 18px rgba(0,255,136,0.12);
+  z-index: 30;
+}
+
+/* detection blip on circumference (single spot) */
+.radar-detection {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 64%;     /* tweak these two values (left/top) to move the blip */
+  top: 27%;
+  transform: translate(-50%, -50%);
+  border-radius: 40%;
+  background: #00ff88;
+  box-shadow: 0 0 10px rgba(0,255,136,0.6), 0 0 22px rgba(0,255,136,0.12);
+  z-index: 28;
+  animation: radar-pulse 1.6s ease-out infinite;
+}
+
+/* subtle glow behind center */
+.radar-glow {
+  display: none; /* not used with this minimal design, keep available */
+}
+
+/* animations */
+@keyframes radar-rotate {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes radar-pulse {
+  0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+  70%  { transform: translate(-50%,-50%) scale(1.6); opacity: 0.35; }
+  100% { transform: translate(-50%,-50%) scale(1.9); opacity: 0; }
+}
+
+/* HERO overlay & tagline improvements (paste at end of stylesheet) */
+
+/* a little stronger overall darkness for hero bg image while keeping visibility */
+.hero-bg-img {
+  transition: filter 400ms ease, opacity 400ms ease, transform 600ms cubic-bezier(.2,.8,.2,1);
+  will-change: transform, opacity, filter;
+}
+
+/* top -> center subtle dark gradient */
+.hero-overlay-top {
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,11,0.95) 0%,
+    rgba(10,10,11,0.85) 12%,
+    rgba(10,10,11,0.55) 28%,
+    rgba(10,10,11,0.20) 48%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: opacity 450ms ease;
+  opacity: 0;
+}
+
+/* center -> bottom subtle dark gradient */
+.hero-overlay-bottom {
+  background: linear-gradient(
+    to top,
+    rgba(10,10,11,0.92) 0%,
+    rgba(10,10,11,0.6) 14%,
+    rgba(10,10,11,0.28) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: opacity 450ms ease 80ms;
+  opacity: 0;
+}
+
+/* show overlays when loaded (Hero adds is-loaded class) */
+.hero-overlay-top.is-loaded,
+.hero-overlay-bottom.is-loaded,
+.hero-bg-img.is-loaded {
+  opacity: 1;
+}
+
+/* tagline styling — slightly brighter + subtle shadow for contrast */
+.hero-tagline {
+  color: rgba(240,240,240,1); /* nearly white but gentle */
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 1px 0 rgba(0,0,0,0.45);
+  /* keep line-height and width already set in markup */
+}
+
+/* if you prefer a soft backdrop behind the tagline (optional), uncomment below:*/
+.hero-tagline {
+  background: rgba(10,10,11,0.35);
+  padding: 12px 18px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+
+/* accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-img, .hero-overlay-top, .hero-overlay-bottom { transition: none; animation: none; }
+}
+
