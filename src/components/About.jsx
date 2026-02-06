@@ -5,7 +5,7 @@ import { personalInfo, researchInterests } from '../data/mock';
 const About = () => {
   const stats = [
     { icon: Brain, label: 'FOCUS', value: 'AI/ML' },
-    { icon: Target, label: 'CGPA', value: '8.66' },
+    { icon: Target, label: 'CGPA', value: '8.81' },
     { icon: Zap, label: 'STATUS', value: 'ACTIVE' },
   ];
 
