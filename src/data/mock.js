@@ -114,7 +114,7 @@ export const education = {
   degree: "B.Tech in Computer Science & Engineering (AI & ML)",
   university: "Kalinga Institute of Industrial Technology (KIIT University)",
   duration: "2024 – 2028",
-  cgpa: "8.66",
+  cgpa: "8.81",
   expectedGraduation: "Aug 2028",
   school: {
     name: "St. Joseph's Senior Secondary School, Kanpur",
