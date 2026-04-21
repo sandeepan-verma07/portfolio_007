@@ -45,7 +45,7 @@ export const technicalSkills = {
 
   aiTechniques: [
     { name: "LLM Fine-Tuning", level: 78 },
-    { name: "RAG Systems", level: 82 },
+    { name: "RAG Systems", level: 100 },
     { name: "GANs", level: 70 },
     { name: "Deep Learning", level: 85 },
     { name: "NLP", level: 80 },
@@ -68,8 +68,8 @@ export const technicalSkills = {
   softSkills: [
     { name: "Research Writing", level: 80 },
     { name: "Analytical Thinking", level: 90 },
-    { name: "Collaboration", level: 85 },
-    { name: "Communication", level: 90 }
+    { name: "Collaboration", level: 100 },
+    { name: "Communication", level: 100 }
   ]
 };
 
@@ -90,8 +90,34 @@ export const projects = [
     description: "Built a multilingual AI web app for crop yield prediction using TensorFlow, Keras, and Google Gemini API. Integrated real-time rainfall data and developed a deep learning model for accurate yield forecasting.",
     highlights: ["Multilingual support (English & Odia)", "Real-time data integration", "Personalized recommendations"],
     techStack: ["Python", "TensorFlow", "Keras", "Streamlit", "Pandas", "NumPy", "Gemini API", "Open-Meteo API"]
+  },
+   {
+    id: 3,
+    title: "Rehabilitation Questionnaire Platform",
+    status: "Freelance Production",
+    description: "Built an AI-powered rehabilitation questionnaire platform for an Australian insurance client. Patients fill structured intake forms; an LLM generates clinical-grade summaries automatically. Includes full database management for patient records and questionnaire responses.",
+    highlights: [
+      "AI-generated clinical summaries",
+      "Structured intake questionnaire flow",
+      "Patient database management",
+      "Australian insurance client deployment"
+    ],
+    techStack: ["Python", "LLM", "FastAPI", "Database Management"]
+  },
+ {
+    id: 4,
+    title: "The Teacher App — Airtel Foundation",
+    status: "Active Internship",
+    description: "Backend Data Management Intern at Bharti Airtel Foundation. Building and maintaining backend data pipelines and CI/CD workflows for an EdTech platform serving 2.5 lakh+ users across India.",
+    highlights: [
+      "Backend data pipeline development",
+      "CI/CD workflow automation",
+      "Scale: 2.5L+ active users"
+    ],
+    techStack: ["Python", "CI/CD", "Data Pipelines", "Git", "GitHub"]
   }
 ];
+
 
 export const certifications = [
   {

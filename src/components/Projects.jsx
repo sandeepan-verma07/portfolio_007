@@ -125,7 +125,7 @@ const Projects = () => {
             <div className="w-2 h-2 bg-[#00ff88] animate-pulse" />
             <span className="font-mono text-[#8b8b8b] text-xs">MORE OPERATIONS CLASSIFIED</span>
           </div>
-          <span className="font-mono text-[#D4A853] text-xs">CLEARANCE LEVEL: PUBLIC</span>
+          <span className="font-mono text-[#D4A853] text-xs">CLEARANCE LEVEL: PRIVATE</span>
         </div>
       </div>
     </section>
