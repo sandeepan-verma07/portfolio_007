@@ -2,7 +2,7 @@
 
 export const personalInfo = {
   name: "Sandeepan Verma",
-  title: "AI & ML Researcher and Enginner ",
+  title: "AI & ML Researcher and Engineer ",
   tagline: "Research-driven undergraduate specializing in Machine Learning, Generative AI, and Agentic Systems",
   email: "sandeepanverma2310@gmail.com",
   phone: "+91 7991429447",
